@@ -1,9 +1,8 @@
 
 
-package org.graphs;
+package org.graphs.BFS;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class GraphBFS {

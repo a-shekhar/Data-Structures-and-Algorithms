@@ -1,35 +1,36 @@
-package org.graphs;
+package org.graphs.BFS;
 
 import java.util.ArrayList;
 
 /*
 Implement a graph data structure using adjacency matrix.
 */
-public class Graph {
+public class GraphUsingList {
     ArrayList<GraphNode> nodeList = new ArrayList<>();
-    int[][] adjacencyMatrix;
 
-    public Graph(ArrayList<GraphNode>  nodeList){
+    public GraphUsingList(ArrayList<GraphNode> nodeList) {
         this.nodeList = nodeList;
-        this.adjacencyMatrix = new int[nodeList.size()][nodeList.size()];
     }
 
-    public void addUndirectedEdge(int i, int j){
-        adjacencyMatrix[i][j] = 1;
-        adjacencyMatrix[j][i] = 1;
+    public void addUndirectedEdge(int i, int j) {
+        GraphNode first = nodeList.get(i);
+        GraphNode second = nodeList.get(j);
+        first.neighbors.add(second);
+        second.neighbors.add(first);
     }
+
+    // For printing Graph to the console
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("   ");
-        for (GraphNode graphNode : nodeList) {
-            s.append(graphNode.name).append(" ");
-        }
-        s.append("\n");
         for (int i = 0; i < nodeList.size(); i++) {
-            s.append(nodeList.get(i).name).append(": ");
-            for (int j : adjacencyMatrix[i]) {
-                s.append((j)).append(" ");
+            s.append(nodeList.get(i).name + ": ");
+            for (int j =0; j < nodeList.get(i).neighbors.size(); j++) {
+                if (j == nodeList.get(i).neighbors.size()-1 ) {
+                    s.append((nodeList.get(i).neighbors.get(j).name) );
+                } else {
+                    s.append((nodeList.get(i).neighbors.get(j).name) + " -> ");
+                }
             }
             s.append("\n");
         }
@@ -43,7 +44,7 @@ public class Graph {
         nodeList.add(new GraphNode("C", 2));
         nodeList.add(new GraphNode("D", 3));
         nodeList.add(new GraphNode("E", 4));
-        Graph graph = new Graph(nodeList);
+        GraphUsingList graph = new GraphUsingList(nodeList);
         graph.addUndirectedEdge(0, 1);
         graph.addUndirectedEdge(0, 2);
         graph.addUndirectedEdge(0, 3);

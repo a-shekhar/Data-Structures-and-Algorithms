@@ -1,4 +1,4 @@
-package org.graphs;
+package org.graphs.BFS;
 
 public class GraphNodeBFS {
     public String name;
