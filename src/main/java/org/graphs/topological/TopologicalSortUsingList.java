@@ -1,4 +1,4 @@
-package org.graphs.DFS;
+package org.graphs.topological;
 
 import org.graphs.GraphNodeList;
 
@@ -9,10 +9,10 @@ import java.util.Stack;
 /*
 Implement a graph data structure using adjacency matrix.
 */
-public class GraphDFSUsingList {
+public class TopologicalSortUsingList {
     ArrayList<GraphNodeList> nodeList = new ArrayList<>();
 
-    public GraphDFSUsingList(ArrayList<GraphNodeList> nodeList) {
+    public TopologicalSortUsingList(ArrayList<GraphNodeList> nodeList) {
         this.nodeList = nodeList;
     }
 
@@ -94,6 +94,11 @@ public class GraphDFSUsingList {
         }
     }
 
+    // topological sort
+    public void addDirectedEdge(int i, int j){
+        //G
+    }
+
     public static void main(String[] args) {
         ArrayList<GraphNodeList> nodeList = new ArrayList<>();
         nodeList.add(new GraphNodeList("A", 0));
@@ -101,7 +106,7 @@ public class GraphDFSUsingList {
         nodeList.add(new GraphNodeList("C", 2));
         nodeList.add(new GraphNodeList("D", 3));
         nodeList.add(new GraphNodeList("E", 4));
-        GraphDFSUsingList graph = new GraphDFSUsingList(nodeList);
+        TopologicalSortUsingList graph = new TopologicalSortUsingList(nodeList);
         graph.addUndirectedEdge(0, 1);
         graph.addUndirectedEdge(0, 2);
         graph.addUndirectedEdge(0, 3);

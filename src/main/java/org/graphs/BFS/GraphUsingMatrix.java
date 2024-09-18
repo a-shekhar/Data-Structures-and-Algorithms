@@ -5,11 +5,11 @@ import java.util.ArrayList;
 /*
 Implement a graph data structure using adjacency matrix.
 */
-public class Graph {
+public class GraphUsingMatrix {
     ArrayList<GraphNode> nodeList = new ArrayList<>();
     int[][] adjacencyMatrix;
 
-    public Graph(ArrayList<GraphNode>  nodeList){
+    public GraphUsingMatrix(ArrayList<GraphNode>  nodeList){
         this.nodeList = nodeList;
         this.adjacencyMatrix = new int[nodeList.size()][nodeList.size()];
     }
@@ -43,7 +43,7 @@ public class Graph {
         nodeList.add(new GraphNode("C", 2));
         nodeList.add(new GraphNode("D", 3));
         nodeList.add(new GraphNode("E", 4));
-        Graph graph = new Graph(nodeList);
+        GraphUsingMatrix graph = new GraphUsingMatrix(nodeList);
         graph.addUndirectedEdge(0, 1);
         graph.addUndirectedEdge(0, 2);
         graph.addUndirectedEdge(0, 3);

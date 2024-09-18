@@ -2,14 +2,16 @@
 
 package org.graphs.BFS;
 
+import org.graphs.GraphNodeMatrix;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class GraphBFS {
-    ArrayList<GraphNodeBFS> nodeList = new ArrayList<>();
+public class GraphBFSMatrix {
+    ArrayList<GraphNodeMatrix> nodeList = new ArrayList<>();
     int[][] adjacencyMatrix;
 
-    public GraphBFS(ArrayList<GraphNodeBFS>  nodeList){
+    public GraphBFSMatrix(ArrayList<GraphNodeMatrix>  nodeList){
         this.nodeList = nodeList;
         this.adjacencyMatrix = new int[nodeList.size()][nodeList.size()];
     }
@@ -22,7 +24,7 @@ public class GraphBFS {
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("   ");
-        for (GraphNodeBFS graphNode : nodeList) {
+        for (GraphNodeMatrix graphNode : nodeList) {
             s.append(graphNode.name).append(" ");
         }
         s.append("\n");
@@ -36,8 +38,8 @@ public class GraphBFS {
         return s.toString();
     }
     // get neighbours
-    public ArrayList<GraphNodeBFS> getNeighbours(GraphNodeBFS node) {
-        ArrayList<GraphNodeBFS> neighbours = new ArrayList<>();
+    public ArrayList<GraphNodeMatrix> getNeighbours(GraphNodeMatrix node) {
+        ArrayList<GraphNodeMatrix> neighbours = new ArrayList<>();
         int nodeIndex = node.index;
         for(int i = 0; i < adjacencyMatrix.length; i++) {
             if(adjacencyMatrix[nodeIndex][i] == 1){
@@ -48,15 +50,15 @@ public class GraphBFS {
     }
 
     // BFS internal
-     void bfsVisit(GraphNodeBFS node) {
-        LinkedList<GraphNodeBFS> queue = new LinkedList<>();
+     void bfsVisit(GraphNodeMatrix node) {
+        LinkedList<GraphNodeMatrix> queue = new LinkedList<>();
         queue.add(node);
         while (!queue.isEmpty()){
-            GraphNodeBFS currentNode = queue.poll();
+            GraphNodeMatrix currentNode = queue.poll();
             currentNode.isVisited = true;
             System.out.print(currentNode.name + " ");
-            ArrayList<GraphNodeBFS> neighbors = getNeighbours(currentNode);
-            for(GraphNodeBFS neighbor : neighbors){
+            ArrayList<GraphNodeMatrix> neighbors = getNeighbours(currentNode);
+            for(GraphNodeMatrix neighbor : neighbors){
                 if(!neighbor.isVisited){
                     queue.add(neighbor);
                     neighbor.isVisited = true;
@@ -66,7 +68,7 @@ public class GraphBFS {
     }
 
     public void bfs(){
-        for(GraphNodeBFS node : nodeList){
+        for(GraphNodeMatrix node : nodeList){
             if(!node.isVisited){
                 bfsVisit(node);
             }
@@ -76,13 +78,13 @@ public class GraphBFS {
 
 
     public static void main(String[] args) {
-        ArrayList<GraphNodeBFS> nodeList = new ArrayList<>();
-        nodeList.add(new GraphNodeBFS("A", 0));
-        nodeList.add(new GraphNodeBFS("B", 1));
-        nodeList.add(new GraphNodeBFS("C", 2));
-        nodeList.add(new GraphNodeBFS("D", 3));
-        nodeList.add(new GraphNodeBFS("E", 4));
-        GraphBFS graph = new GraphBFS(nodeList);
+        ArrayList<GraphNodeMatrix> nodeList = new ArrayList<>();
+        nodeList.add(new GraphNodeMatrix("A", 0));
+        nodeList.add(new GraphNodeMatrix("B", 1));
+        nodeList.add(new GraphNodeMatrix("C", 2));
+        nodeList.add(new GraphNodeMatrix("D", 3));
+        nodeList.add(new GraphNodeMatrix("E", 4));
+        GraphBFSMatrix graph = new GraphBFSMatrix(nodeList);
         graph.addUndirectedEdge(0, 1);
         graph.addUndirectedEdge(0, 2);
         graph.addUndirectedEdge(0, 3);

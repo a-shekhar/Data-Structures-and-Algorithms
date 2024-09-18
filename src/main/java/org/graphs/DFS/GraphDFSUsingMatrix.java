@@ -2,15 +2,17 @@
 
 package org.graphs.DFS;
 
+import org.graphs.GraphNodeMatrix;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
 public class GraphDFSUsingMatrix {
-    ArrayList<GraphNodeDFSUsingMatrix> nodeList = new ArrayList<>();
+    ArrayList<GraphNodeMatrix> nodeList = new ArrayList<>();
     int[][] adjacencyMatrix;
 
-    public GraphDFSUsingMatrix(ArrayList<GraphNodeDFSUsingMatrix>  nodeList){
+    public GraphDFSUsingMatrix(ArrayList<GraphNodeMatrix>  nodeList){
         this.nodeList = nodeList;
         this.adjacencyMatrix = new int[nodeList.size()][nodeList.size()];
     }
@@ -23,7 +25,7 @@ public class GraphDFSUsingMatrix {
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("   ");
-        for (GraphNodeDFSUsingMatrix graphNode : nodeList) {
+        for (GraphNodeMatrix graphNode : nodeList) {
             s.append(graphNode.name).append(" ");
         }
         s.append("\n");
@@ -38,8 +40,8 @@ public class GraphDFSUsingMatrix {
     }
 
     // get neighbours
-    public ArrayList<GraphNodeDFSUsingMatrix> getNeighbours(GraphNodeDFSUsingMatrix node) {
-        ArrayList<GraphNodeDFSUsingMatrix> neighbours = new ArrayList<>();
+    public ArrayList<GraphNodeMatrix> getNeighbours(GraphNodeMatrix node) {
+        ArrayList<GraphNodeMatrix> neighbours = new ArrayList<>();
         int nodeIndex = node.index;
         for(int i = 0; i < adjacencyMatrix.length; i++) {
             if(adjacencyMatrix[nodeIndex][i] == 1){
@@ -50,15 +52,15 @@ public class GraphDFSUsingMatrix {
     }
 
     // BFS internal
-     void bfsVisit(GraphNodeDFSUsingMatrix node) {
-        LinkedList<GraphNodeDFSUsingMatrix> queue = new LinkedList<>();
+     void bfsVisit(GraphNodeMatrix node) {
+        LinkedList<GraphNodeMatrix> queue = new LinkedList<>();
         queue.add(node);
         while (!queue.isEmpty()){
-            GraphNodeDFSUsingMatrix currentNode = queue.poll();
+            GraphNodeMatrix currentNode = queue.poll();
             currentNode.isVisited = true;
             System.out.print(currentNode.name + " ");
-            ArrayList<GraphNodeDFSUsingMatrix> neighbors = getNeighbours(currentNode);
-            for(GraphNodeDFSUsingMatrix neighbor : neighbors){
+            ArrayList<GraphNodeMatrix> neighbors = getNeighbours(currentNode);
+            for(GraphNodeMatrix neighbor : neighbors){
                 if(!neighbor.isVisited){
                     queue.add(neighbor);
                     neighbor.isVisited = true;
@@ -69,7 +71,7 @@ public class GraphDFSUsingMatrix {
 
 
     public void bfs(){
-        for(GraphNodeDFSUsingMatrix node : nodeList){
+        for(GraphNodeMatrix node : nodeList){
             if(!node.isVisited){
                 bfsVisit(node);
             }
@@ -79,14 +81,14 @@ public class GraphDFSUsingMatrix {
 
 
     // DFS internal
-    void dfsVisit(GraphNodeDFSUsingMatrix node) {
-        Stack<GraphNodeDFSUsingMatrix> stack = new Stack<>();
+    void dfsVisit(GraphNodeMatrix node) {
+        Stack<GraphNodeMatrix> stack = new Stack<>();
         stack.push(node);
         while(!stack.isEmpty()){
-            GraphNodeDFSUsingMatrix currentNode = stack.pop();
+            GraphNodeMatrix currentNode = stack.pop();
             currentNode.isVisited = true;
             System.out.print(currentNode.name + " ");
-            for(GraphNodeDFSUsingMatrix neighbor : getNeighbours(currentNode)){
+            for(GraphNodeMatrix neighbor : getNeighbours(currentNode)){
                 if(!neighbor.isVisited){
                     stack.push(neighbor);
                     neighbor.isVisited = true;
@@ -96,7 +98,7 @@ public class GraphDFSUsingMatrix {
     }
 
     public void dfs(){
-        for(GraphNodeDFSUsingMatrix node : nodeList){
+        for(GraphNodeMatrix node : nodeList){
             if(!node.isVisited){
                 dfsVisit(node);
             }
@@ -104,12 +106,12 @@ public class GraphDFSUsingMatrix {
     }
 
     public static void main(String[] args) {
-        ArrayList<GraphNodeDFSUsingMatrix> nodeList = new ArrayList<>();
-        nodeList.add(new GraphNodeDFSUsingMatrix("A", 0));
-        nodeList.add(new GraphNodeDFSUsingMatrix("B", 1));
-        nodeList.add(new GraphNodeDFSUsingMatrix("C", 2));
-        nodeList.add(new GraphNodeDFSUsingMatrix("D", 3));
-        nodeList.add(new GraphNodeDFSUsingMatrix("E", 4));
+        ArrayList<GraphNodeMatrix> nodeList = new ArrayList<>();
+        nodeList.add(new GraphNodeMatrix("A", 0));
+        nodeList.add(new GraphNodeMatrix("B", 1));
+        nodeList.add(new GraphNodeMatrix("C", 2));
+        nodeList.add(new GraphNodeMatrix("D", 3));
+        nodeList.add(new GraphNodeMatrix("E", 4));
         GraphDFSUsingMatrix graph = new GraphDFSUsingMatrix(nodeList);
         graph.addUndirectedEdge(0, 1);
         graph.addUndirectedEdge(0, 2);

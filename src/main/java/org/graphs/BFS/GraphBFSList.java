@@ -1,21 +1,23 @@
 package org.graphs.BFS;
 
+import org.graphs.GraphNodeList;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 /*
 Implement a graph data structure using adjacency matrix.
 */
-public class GraphBFSUsingAdjencyList {
-    ArrayList<GraphNodeBFSUsingAdjacencyList> nodeList = new ArrayList<>();
+public class GraphBFSList {
+    ArrayList<GraphNodeList> nodeList = new ArrayList<>();
 
-    public GraphBFSUsingAdjencyList(ArrayList<GraphNodeBFSUsingAdjacencyList> nodeList) {
+    public GraphBFSList(ArrayList<GraphNodeList> nodeList) {
         this.nodeList = nodeList;
     }
 
     public void addUndirectedEdge(int i, int j) {
-        GraphNodeBFSUsingAdjacencyList first = nodeList.get(i);
-        GraphNodeBFSUsingAdjacencyList second = nodeList.get(j);
+        GraphNodeList first = nodeList.get(i);
+        GraphNodeList second = nodeList.get(j);
         first.neighbors.add(second);
         second.neighbors.add(first);
     }
@@ -39,14 +41,14 @@ public class GraphBFSUsingAdjencyList {
     }
 
     // BFS internal
-    void bfsVisit(GraphNodeBFSUsingAdjacencyList node){
-        LinkedList<GraphNodeBFSUsingAdjacencyList> queue = new LinkedList<>();
+    void bfsVisit(GraphNodeList node){
+        LinkedList<GraphNodeList> queue = new LinkedList<>();
         queue.add(node);
         while (!queue.isEmpty()){
-            GraphNodeBFSUsingAdjacencyList currentNode = queue.poll();
+            GraphNodeList currentNode = queue.poll();
             currentNode.isVisited = true;
             System.out.print(currentNode.name + " ");
-            for(GraphNodeBFSUsingAdjacencyList neighbour : currentNode.neighbors){
+            for(GraphNodeList neighbour : currentNode.neighbors){
                 if(!neighbour.isVisited){
                     queue.add(neighbour);
                     neighbour.isVisited = true;
@@ -56,7 +58,7 @@ public class GraphBFSUsingAdjencyList {
     }
 
     void bfs(){
-        for(GraphNodeBFSUsingAdjacencyList node : nodeList){
+        for(GraphNodeList node : nodeList){
             if(!node.isVisited){
                 bfsVisit(node);
             }
@@ -64,13 +66,13 @@ public class GraphBFSUsingAdjencyList {
     }
 
     public static void main(String[] args) {
-        ArrayList<GraphNodeBFSUsingAdjacencyList> nodeList = new ArrayList<>();
-        nodeList.add(new GraphNodeBFSUsingAdjacencyList("A", 0));
-        nodeList.add(new GraphNodeBFSUsingAdjacencyList("B", 1));
-        nodeList.add(new GraphNodeBFSUsingAdjacencyList("C", 2));
-        nodeList.add(new GraphNodeBFSUsingAdjacencyList("D", 3));
-        nodeList.add(new GraphNodeBFSUsingAdjacencyList("E", 4));
-        GraphBFSUsingAdjencyList graph = new GraphBFSUsingAdjencyList(nodeList);
+        ArrayList<GraphNodeList> nodeList = new ArrayList<>();
+        nodeList.add(new GraphNodeList("A", 0));
+        nodeList.add(new GraphNodeList("B", 1));
+        nodeList.add(new GraphNodeList("C", 2));
+        nodeList.add(new GraphNodeList("D", 3));
+        nodeList.add(new GraphNodeList("E", 4));
+        GraphBFSList graph = new GraphBFSList(nodeList);
         graph.addUndirectedEdge(0, 1);
         graph.addUndirectedEdge(0, 2);
         graph.addUndirectedEdge(0, 3);
