@@ -3,7 +3,6 @@ package org.graphs.topological;
 import org.graphs.GraphNodeList;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Stack;
 
 /*
@@ -42,81 +41,60 @@ public class TopologicalSortUsingList {
     }
 
 
-
-    // BFS internal
-    void bfsVisit(GraphNodeList node){
-        LinkedList<GraphNodeList> queue = new LinkedList<>();
-        queue.add(node);
-        while (!queue.isEmpty()){
-            GraphNodeList currentNode = queue.poll();
-            currentNode.isVisited = true;
-            System.out.print(currentNode.name + " ");
-            for(GraphNodeList neighbour : currentNode.neighbors){
-                if(!neighbour.isVisited){
-                    queue.add(neighbour);
-                    neighbour.isVisited = true;
-                }
-            }
-        }
-    }
-
-    void bfs(){
-        for(GraphNodeList node : nodeList){
-            if(!node.isVisited){
-                bfsVisit(node);
-            }
-        }
-    }
-
-    //
-    void dfsVisit(GraphNodeList node){
-        Stack<GraphNodeList> stack = new Stack<>();
-        stack.push(node);
-        while (!stack.isEmpty()){
-            GraphNodeList currentNode = stack.pop();
-            currentNode.isVisited = true;
-            System.out.print(currentNode.name + " ");
-
-            for(GraphNodeList neighbor : currentNode.neighbors){
-                if(!neighbor.isVisited){
-                    stack.push(neighbor);
-                    neighbor.isVisited = true;
-                }
-            }
-        }
-    }
-    
-    public void dfs(){
-        for(GraphNodeList node : nodeList){
-            if(!node.isVisited){
-                dfsVisit(node);
-            }
-        }
-    }
-
     // topological sort
     public void addDirectedEdge(int i, int j){
-        //G
+        GraphNodeList first = nodeList.get(i);
+        GraphNodeList second = nodeList.get(j);
+        first.neighbors.add(second);
+    }
+
+    void topologicalVisit(GraphNodeList node, Stack<GraphNodeList> stack){
+        for(GraphNodeList neighbor : node.neighbors){
+            if(!neighbor.isVisited){
+                topologicalVisit(neighbor, stack);
+            }
+        }
+        node.isVisited = true;
+        stack.push(node);
+    }
+
+    public void topologicalSort(){
+        Stack<GraphNodeList> stack = new Stack<>();
+        for(GraphNodeList node : nodeList){
+            if(!node.isVisited){
+                topologicalVisit(node, stack);
+            }
+        }
+        while (!stack.isEmpty()){
+            System.out.print(stack.pop().name + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
+
         ArrayList<GraphNodeList> nodeList = new ArrayList<>();
         nodeList.add(new GraphNodeList("A", 0));
         nodeList.add(new GraphNodeList("B", 1));
         nodeList.add(new GraphNodeList("C", 2));
         nodeList.add(new GraphNodeList("D", 3));
         nodeList.add(new GraphNodeList("E", 4));
-        TopologicalSortUsingList graph = new TopologicalSortUsingList(nodeList);
-        graph.addUndirectedEdge(0, 1);
-        graph.addUndirectedEdge(0, 2);
-        graph.addUndirectedEdge(0, 3);
-        graph.addUndirectedEdge(1, 4);
-        graph.addUndirectedEdge(2, 3);
-        graph.addUndirectedEdge(3, 4);
+        nodeList.add(new GraphNodeList("F", 5));
+        nodeList.add(new GraphNodeList("G", 6));
+        nodeList.add(new GraphNodeList("H", 7));
 
-        System.out.println(graph.toString());
+        TopologicalSortUsingList newGraph = new TopologicalSortUsingList(nodeList);
+        newGraph.addDirectedEdge(0, 2);
+        newGraph.addDirectedEdge(2, 4);
+        newGraph.addDirectedEdge(4, 7);
+        newGraph.addDirectedEdge(4, 5);
+        newGraph.addDirectedEdge(5, 6);
+        newGraph.addDirectedEdge(1, 2);
+        newGraph.addDirectedEdge(1, 3);
+        newGraph.addDirectedEdge(3, 5);
 
-        // graph.bfs();
-        graph.dfs();
+        System.out.println(newGraph.toString());
+
+        newGraph.topologicalSort();
     }
 }
